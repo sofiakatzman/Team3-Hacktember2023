@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../functionality/UserContext';
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup"
 import { useFormik } from "formik"
 
 const Authentication = () => {
-  const { checkAuthorization } = useContext(UserContext);
+  const { checkAuthorization, setUser } = useContext(UserContext); // Use setUser from the context
   const [signUp, setSignUp] = useState(false);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
@@ -35,10 +34,8 @@ const Authentication = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // Update user context or set a token in local storage
-        // depending on your Authorization setup
-        // updateUser(data);
-        navigate("/");
+        setUser(data); // Update the user context with the logged-in user data
+        navigate("/home");
       } else {
         if (signUp) {
           throw new Error("Sign-up failed. Please check your inputs and try again.");

@@ -27,7 +27,7 @@ export function UserProvider({ children }) {
 
   useEffect(() => {
     checkAuthorization()
-  }, [])
+  }, [user])
 
   // Function to handle logout
   const logout = () => {
