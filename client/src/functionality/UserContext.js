@@ -32,6 +32,13 @@ export function UserProvider({ children }) {
   // Function to handle logout
   const logout = () => {
     setUser(null); 
+      fetch("/api/logout", {
+        method: 'DELETE'})
+      .then(res => {
+        if(res.ok){
+          setUser(null)
+        }
+      })
   };
 
   useEffect(() => {

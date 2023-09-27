@@ -3,21 +3,21 @@ import { UserContext } from '../functionality/UserContext';
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup"
 import { useFormik } from "formik"
+import AuthCard from '../components/Authorization/AuthCard';
 
 const Authentication = () => {
-  const { checkAuthorization, setUser } = useContext(UserContext); // Use setUser from the context
+  const { user, checkAuthorization, setUser, logout } = useContext(UserContext);
   const [signUp, setSignUp] = useState(false);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Check if a user is logged in when the component mounts
   useEffect(() => {
     checkAuthorization();
   }, [checkAuthorization]);
 
   const handleClick = () => {
     setSignUp(prevState => !prevState);
-    setErrorMessage(""); // Clear any previous error message when switching between sign-up and login
+    setErrorMessage("");
   }
 
   const handleSubmit = async (values) => {
@@ -34,13 +34,13 @@ const Authentication = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setUser(data); // Update the user context with the logged-in user data
+        setUser(data);
         navigate("/home");
       } else {
         if (signUp) {
           throw new Error("Sign-up failed. Please check your inputs and try again.");
         } else {
-          throw new Error("Login failed. Please check your username and password.");
+          throw Error("Login failed. Please check your username and password.");
         }
       }
     } catch (error) {
@@ -65,28 +65,14 @@ const Authentication = () => {
 
   return (
     <>
-      <form className="" onSubmit={formik.handleSubmit}>
-        <h4>{signUp ? "Enter your credentials to sign up!" : "Enter your credentials to log in!"}</h4>
-        <input
-          type="text"
-          name="username"
-          placeholder="username"
-          value={formik.values.username}
-          onChange={formik.handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-        />
-        <input type="submit" value={signUp ? "Sign Up!" : "Log In!"} />
-        <h5>{signUp ? "Already a member?" : "Not a member?"}</h5>
-        <button type="button" onClick={handleClick}>
-          {signUp ? "Log In!" : "Sign Up!"}
-        </button>
-      </form>
+      {user ? (
+        <div>
+          <p>Welcome, {user.username}!</p>
+          <button onClick={logout}>Logout</button>
+        </div>
+      ) : (
+        <AuthCard signUp={signUp} formik={formik} handleClick={handleClick} />
+      )}
       {errorMessage && (
         <div className="errors">
           <h6 style={{ color: "red" }}>{errorMessage}</h6>
@@ -104,7 +90,7 @@ const Authentication = () => {
         </div>
       )}
     </>
-  )
+  );
 }
 
 export default Authentication;
