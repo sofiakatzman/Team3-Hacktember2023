@@ -9,7 +9,7 @@ class UserList(Resource):
       
   def post(self):
       form_json = request.get_json()
-      new_user = User(username=form_json['username'], birthday=form_json['birthday'])
+      new_user = User(username=form_json['username'])
       
       # Hashes password and saves it to _password_hash
       new_user.password_hash = form_json['password']
