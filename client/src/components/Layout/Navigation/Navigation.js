@@ -9,6 +9,7 @@ const Navigation = () => {
   return (
     <div className="">
         * this space is for navigation element * 
+          <NavLink to="/">[ root ] </NavLink>
           <NavLink to="/auth">[ auth ] </NavLink>
           <NavLink to="/home">[ home ]</NavLink>
           {user && <NavLink to="/useronly">[ useronly ]</NavLink>}
