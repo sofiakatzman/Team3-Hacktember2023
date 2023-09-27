@@ -3,10 +3,11 @@ import { useContext } from 'react';
 import { UserContext } from './functionality/UserContext';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
-import Authorization from './pages/Authorization';
+import Authentication from './pages/Authentication';
 import UserOnly from './pages/UserOnly';
 import Home from './pages/Home';
 import './App.css'
+import Root from './pages/Root';
 
 export default function App() {
   const { user } = useContext(UserContext) || { user: null }; 
@@ -16,7 +17,8 @@ export default function App() {
       <Router>
         <Header />
           <Routes>
-            <Route path="/auth" element={<Authorization />} />
+            <Route path="/" element={<Root />} />
+            <Route path="/auth" element={<Authentication />} />
             <Route path="/home" element={<Home />} />
             {user && <Route path="/useronly" element={<UserOnly />} />}
           </Routes>
