@@ -5,12 +5,8 @@ export const UserContext = createContext(null);
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    login()
-  }, [])
-
   // Function to handle login
-  const login = () => {
+  const checkAuthorization = () => {
      // Checks if user session exists if not in dev mode
      fetch('/api/authorized')
      .then(res => {
@@ -29,9 +25,20 @@ export function UserProvider({ children }) {
      })
   }
 
+  useEffect(() => {
+    checkAuthorization()
+  }, [user])
+
   // Function to handle logout
   const logout = () => {
     setUser(null); 
+      fetch("/api/logout", {
+        method: 'DELETE'})
+      .then(res => {
+        if(res.ok){
+          setUser(null)
+        }
+      })
   };
 
   useEffect(() => {
@@ -39,7 +46,7 @@ export function UserProvider({ children }) {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser, logout, login}}>
+    <UserContext.Provider value={{ user, setUser, logout, checkAuthorization}}>
       {children}
     </UserContext.Provider>
   );

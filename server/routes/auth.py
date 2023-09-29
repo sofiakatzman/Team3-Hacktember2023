@@ -29,11 +29,9 @@ class Signup(Resource):
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             return {'error': 'Username already exists'}, 409
-        birthday = request_json.get('birthday')
         
         user = User(
             username=username,
-            birthday=birthday
         )
         user.password_hash = request_json['password']
 
