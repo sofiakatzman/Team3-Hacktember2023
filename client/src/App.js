@@ -8,12 +8,14 @@ import UserOnly from './pages/UserOnly';
 import Home from './pages/Home';
 import './App.css'
 import Root from './pages/Root';
+import Dictaphone from './functionality/Dictaphone';
 
 export default function App() {
   const { user } = useContext(UserContext) || { user: null }; 
   
   return (
     <div className="App">
+      <Dictaphone />
       <Router>
         <Header />
           <Routes>
