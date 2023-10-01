@@ -5,6 +5,7 @@ import Navigation from './Navigation/Navigation';
 
 const Header = () => {
   const { user } = useContext(UserContext) || { user: null };
+  console.log(user)
 
   return (
     <header className="">
