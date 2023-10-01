@@ -23,4 +23,33 @@ class UserList(Resource):
       )
       return response
   
+class UserByID(Resource):
+    def get(self, id):
+        user = User.query.filter_by(id=id).first()
+        return jsonify(user.to_dict())
+    
+    def delete(self, id):
+        user = User.query.filter_by(id=id).first()
+        db.session.delete(user)
+        db.session.commit()
+        response = make_response(
+            user.to_dict(),
+            200
+        )
+        return response
+    
+    def put(self, id):
+        user = User.query.filter_by(id=id).first()
+        form_json = request.get_json()
+        user.username = form_json['username']
+        user.password_hash = form_json['password']
+        db.session.commit()
+        response = make_response(
+            user.to_dict(),
+            200
+        )
+        return response
+
+
+api.add_resource(UserByID, '/api/users/<int:id>')  
 api.add_resource(UserList, '/api/users', endpoint='users')

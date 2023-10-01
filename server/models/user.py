@@ -12,10 +12,12 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String, unique=True)
     admin = db.Column(db.String, default=False)
     _password_hash = db.Column(db.String)
-    serialize_rules = ('-user_content_cart.user', '-user_content_cart.content')
-    content = association_proxy('user_content_cart', 'content')
+    contents = association_proxy('user_content_cart', 'content')
+    content_cart = db.relationship('UserContentCart', backref='user')
+    serialize_rules = ('-content_cart.user', '-content_cart.content.user_content_cart', '-content_cart.content_id')
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
     created_at = db.Column(db.DateTime, default=db.func.now())
+    serialize_only = ('id', 'username', 'admin', 'content_cart')
 
     @hybrid_property
     def password_hash(self):
@@ -29,23 +31,18 @@ class User(db.Model, SerializerMixin):
     def authenticate(self, password):
         return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
 
-    def __repr__(self):
-        return f'USER: ID: {self.id}, Username: {self.username}, Admin: {self.admin}'
-    
-
 class Content(db.Model, SerializerMixin):
-    __tablename__ = "content"
+    __tablename__ = "contents"
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     video = db.Column(db.String)
     description = db.Column(db.String)
-    serialize_only = ('id', 'title', 'video', 'description')
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
     created_at = db.Column(db.DateTime, default=db.func.now())
-
-    def __repr__(self):
-        return f'CONTENT: ID: {self.id}, Title: {self.title}, Content: {self.content}, User: {self.user_id}'
+    serialize_only = ('id', 'title', 'video', 'description')
+    
+  
 
 
 class UserContentCart(db.Model, SerializerMixin):
@@ -53,11 +50,10 @@ class UserContentCart(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    content_id = db.Column(db.Integer, db.ForeignKey('content.id'))
-    user = db.relationship('User', backref='user_content_cart')
-    content = db.relationship('Content', backref='user_content_cart')
+    content_id = db.Column(db.Integer, db.ForeignKey('contents.id'))
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
     created_at = db.Column(db.DateTime, default=db.func.now())
+    content = db.relationship('Content', backref='user_content_cart')
+    serialize_rules = ('-user_content_cart.user', '-user_content_cart.content.user_content_cart', '-content_id')
 
-    def __repr__(self):
-        return f'USER_CONTENT_CART: ID: {self.id}, User ID: {self.user_id}, Content ID: {self.content_id}'
+  
