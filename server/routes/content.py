@@ -33,7 +33,26 @@ class ContentByID(Resource):
             200
         )
         return response
+    
+class AddContentToCart(Resource):
+    def post(self, id): #add a specific content to the cart by id
+        form_json = request.get_json()
+        add_content = Content(title=form_json['title'], video=form_json['video'], description=form_json['description'])
+        db.session.add(add_content)
+        db.session.commit()
+
+        add_content_to_cart = UserContentCart(user_id = id, content_id = add_content.id)
+        db.session.add(add_content_to_cart)
+        db.session.commit()
+        response = make_response(
+            add_content.to_dict(),
+            201
+        )
+        return response
+
+
 
 api.add_resource(ContentList, '/api/content')
 api.add_resource(ContentByID, '/api/content/<int:id>')
+api.add_resource(AddContentToCart, '/api/content/<int:id>/addtocart')
 
