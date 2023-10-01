@@ -20,4 +20,4 @@ def index(id=0):
     return render_template("index.html")
 if __name__ == '__main__':
     # socketio.run(app, host='0.0.0.0', port=8000, debug=False)
-    app.run(port=5555, debug=True)
+    app.run(port=5557, debug=True)
