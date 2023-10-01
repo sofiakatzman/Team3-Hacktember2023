@@ -7,7 +7,6 @@ export function UserProvider({ children }) {
 
   // Function to handle login
   const checkAuthorization = () => {
-    // Checks if user session exists if not in dev mode
     fetch('/api/authorized')
       .then(res => {
         if (res.ok) {
