@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import './App.css'
 import Root from './pages/Root';
 import Dictaphone from './functionality/Dictaphone';
+import CarouselDisplay from './components/Carousel/CarouselDisplay';
 
 export default function App() {
   const { user } = useContext(UserContext) || { user: null }; 
