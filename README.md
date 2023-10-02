@@ -34,3 +34,4 @@ npm start --prefix client
 ### Start the Flask Server (Backend Server)
 python server/app.py
 
+To handle migrations or updates to deployed db > sudo service postgresql start
