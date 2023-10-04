@@ -26,7 +26,7 @@ const Home = () => {
           </a>
         </div>
       </div>
-      <div className="justify-center flex">
+      <div className="justify-center flex py-4">
         <Explore />
       </div>
       {/* <div className="w-[1080px] h-[417px] bg-zinc-300 rounded-[5px]">
