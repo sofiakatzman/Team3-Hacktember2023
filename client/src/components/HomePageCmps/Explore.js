@@ -4,7 +4,7 @@ import CardList from "./CardList";
 const Explore = () => {
   return (
     <div>
-      <p className="text-center text-zinc-800 text-4xl font-semibold font-['Poppins'] ">
+      <p className="text-center text-zinc-800 text-4xl font-bold font-Poppins ">
         Explore
       </p>
       <div>

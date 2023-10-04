@@ -1,6 +1,7 @@
 import React from "react";
 import Video from "../components/Video/Video";
 import Explore from "../components/HomePageCmps/Explore";
+import Banner from "../components/HomePageCmps/Banner";
 
 const Home = () => {
   const backgroundImageUrl =
@@ -8,24 +9,7 @@ const Home = () => {
 
   return (
     <>
-      <div
-        className="bg-cover bg-center h-auto text-white py-40 px-10 object-fill"
-        style={{ backgroundImage: `url(${backgroundImageUrl})` }}
-      >
-        <div className="md:w-1/2">
-          <p className="font-bold text-sm uppercase">Services</p>
-          <p className="text-3xl font-bold">Multimedia products</p>
-          <p className="text-2xl mb-10 leading-none">
-            Attractive designs for your brand
-          </p>
-          <a
-            href="#"
-            className="bg-blue-500 py-4 px-8 text-white font-bold uppercase text-xs rounded hover:bg-gray-200 hover:text-gray-800"
-          >
-            Continue
-          </a>
-        </div>
-      </div>
+     <Banner/>
       <div className="justify-center flex py-4">
         <Explore />
       </div>

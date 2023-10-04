@@ -10,16 +10,25 @@ import "./App.css";
 import Root from "./pages/Root";
 import Dictaphone from "./functionality/Dictaphone";
 import NavbarCmp from "./components/Navbar/NavbarCmp";
-import { useState } from 'react'
-import './App.css'
-import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
+import { useState } from "react";
+import "./App.css";
+import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import {
+  MainContainer,
+  ChatContainer,
+  MessageList,
+  Message,
+  MessageInput,
+  TypingIndicator,
+} from "@chatscope/chat-ui-kit-react";
 
-//The systemMessage will guide the model to provide explanations that are suitable for someone new to software programming. 
+//The systemMessage will guide the model to provide explanations that are suitable for someone new to software programming.
 //The model will aim to avoid jargon and provide clearer, simpler explanations on related topics.
 const systemMessage = {
-  "role": "system", "content": "Explain things like you're talking to a beginner software developer."
-}
+  role: "system",
+  content:
+    "Explain things like you're talking to a beginner software developer.",
+};
 
 function App() {
   const { user } = useContext(UserContext) || { user: null };
@@ -27,20 +36,20 @@ function App() {
     {
       message: "Hello, I'm ChatGPT! Ask me anything!",
       sentTime: "just now",
-      sender: "ChatGPT"
-    }
+      sender: "ChatGPT",
+    },
   ]);
   const [isTyping, setIsTyping] = useState(false);
 
   const handleSend = async (message) => {
     const newMessage = {
       message,
-      direction: 'outgoing',
-      sender: "user"
+      direction: "outgoing",
+      sender: "user",
     };
 
     const newMessages = [...messages, newMessage];
-    
+
     setMessages(newMessages);
 
     setIsTyping(true);
@@ -55,29 +64,25 @@ function App() {
       } else {
         role = "user";
       }
-      return { role: role, content: messageObject.message}
+      return { role: role, content: messageObject.message };
     });
 
     const apiRequestBody = {
-      "model": "gpt-3.5-turbo",
-      "messages": [
-        systemMessage,
-        ...apiMessages
-      ]
-    }
+      model: "gpt-3.5-turbo",
+      messages: [systemMessage, ...apiMessages],
+    };
 
     try {
-      const response = await fetch("http://localhost:5000/api/chat",
-      {
+      const response = await fetch("http://localhost:5000/api/chat", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(apiRequestBody)
+        body: JSON.stringify(apiRequestBody),
       });
-      
+
       if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
+        throw new Error("Network response was not ok " + response.statusText);
       }
 
       const data = await response.json();
@@ -85,22 +90,25 @@ function App() {
       console.log(data);
 
       if (data.choices && data.choices.length > 0 && data.choices[0].message) {
-        setMessages([...chatMessages, {
-          message: data.choices[0].message.content,
-          sender: "ChatGPT"
-        }]);
+        setMessages([
+          ...chatMessages,
+          {
+            message: data.choices[0].message.content,
+            sender: "ChatGPT",
+          },
+        ]);
       } else {
-        console.error('No choices available:', data);
+        console.error("No choices available:", data);
       }
     } catch (error) {
-      console.error('There was a problem with your fetch operation:', error);
+      console.error("There was a problem with your fetch operation:", error);
     } finally {
       setIsTyping(false);
     }
   }
 
   return (
-     <div className="App">
+    <div className="App">
       <BrowserRouter>
         <NavbarCmp />
         <Routes>
@@ -113,24 +121,28 @@ function App() {
         <Header />
         <Footer />
       </BrowserRouter>
-      <div style={{ position:"relative", height: "800px", width: "700px"  }}>
+      <div style={{ position: "relative", height: "800px", width: "700px" }}>
         <MainContainer>
-          <ChatContainer>       
-            <MessageList 
-              scrollBehavior="smooth" 
-              typingIndicator={isTyping ? <TypingIndicator content="ChatGPT is typing" /> : null}
+          <ChatContainer>
+            <MessageList
+              scrollBehavior="smooth"
+              typingIndicator={
+                isTyping ? (
+                  <TypingIndicator content="ChatGPT is typing" />
+                ) : null
+              }
             >
               {messages.map((message, i) => {
-                console.log(message)
-                return <Message key={i} model={message} />
+                console.log(message);
+                return <Message key={i} model={message} />;
               })}
             </MessageList>
-            <MessageInput placeholder="Type message here" onSend={handleSend} />        
+            <MessageInput placeholder="Type message here" onSend={handleSend} />
           </ChatContainer>
         </MainContainer>
       </div>
     </div>
-  )
+  );
 }
 
 export default App;
