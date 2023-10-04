@@ -35,7 +35,7 @@ export const ChatContainer = ({ children, className, ...rest }) => {
 
 ChatContainer.propTypes = {
   /**
-   * Primary content.
+   * Primary .
    * Allowed elements:
    *
    * * &lt;ConversationHeader /&gt;
