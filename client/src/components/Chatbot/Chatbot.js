@@ -3,22 +3,21 @@ import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
 const systemMessage = {
-    "role": "system", "content": "Explain things like you're talking to a beginner software developer."
+    "role": "system", "content": "Please explain things like you're talking to a young person, in just one or two sentences."
 };
 
-const Chatbot = ({ spokenText }) => {
+const Chatbot = ({ spokenText, handleChatBoxTrigger, openChatBox }) => {
     const [messages, setMessages] = useState([
         {
-            message: "Hello, I'm ChatGPT! Ask me anything!",
+            message: "Hello, I'm Edu, EduGuide's resident guide! What can I clarify for you?",
             sentTime: "just now",
-            sender: "ChatGPT"
+            sender: "Edu"
         }
     ]);
     const [isTyping, setIsTyping] = useState(false);
 
     useEffect(() => {
         if (spokenText) {
-            // When spokenText changes, send it as a message to the chatbot
             handleSend(spokenText);
         }
     }, [spokenText]);
@@ -76,31 +75,48 @@ const Chatbot = ({ spokenText }) => {
             if (data.choices && data.choices.length > 0 && data.choices[0].message) {
                 setMessages([...chatMessages, {
                     message: data.choices[0].message.content,
-                    sender: "ChatGPT"
+                    sender: "Edu"
                 }]);
+                startCountdown();
+                setIsTyping(false);
             } else {
                 console.error('No choices available:', data);
             }
         } catch (error) {
             console.error('There was a problem with your fetch operation:', error);
-        } finally {
-            setIsTyping(false);
         }
     }
 
+    const startCountdown = () => {
+        setTimeout(() => {
+            setIsTyping(false);
+            handleChatBoxTrigger(false);
+        }, 20000);
+    };
+
     return (
-        <div style={{ position: "relative", height: "800px", width: "700px" }}>
+        <div
+            style={{
+            position: "fixed",
+            bottom: "0",
+            left: "50%",
+            // transform: "translate(- 50%)",
+            zIndex: "9999", // Ensure it's displayed above other elements
+            height: "400px", // Set the desired height
+            width: "600px", // Set the desired width
+        }}
+>
             <MainContainer>
-                <ChatContainer>
+                <ChatContainer >
                     <MessageList
                         scrollBehavior="smooth"
-                        typingIndicator={isTyping ? <TypingIndicator content="ChatGPT is typing" /> : null}
+                        typingIndicator={isTyping ? <TypingIndicator content="EduGuide is typing" /> : null}
                     >
                         {messages.map((message, i) => {
                             return <Message key={i} model={message} />
                         })}
                     </MessageList>
-                    <MessageInput placeholder="Type message here" onSend={handleSend} />
+                    <MessageInput placeholder="Type message here" onSend={handleSend} style={{ display: "none" }}/>
                 </ChatContainer>
             </MainContainer>
         </div>

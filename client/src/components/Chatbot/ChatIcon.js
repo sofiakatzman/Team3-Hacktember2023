@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import mic from "../../assets/LOGO_MIC.png";
 
-const ChatIcon = ({ setIsListening }) => {
+const ChatIcon = ({ setIsListening, handleChatBoxTrigger }) => {
   const handleMouseDown = () => {
     setIsListening(true);
     console.log("starting to listen")
+    handleChatBoxTrigger(true)
   };
 
   const handleMouseUp = () => {

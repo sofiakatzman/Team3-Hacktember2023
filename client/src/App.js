@@ -17,6 +17,7 @@ function App() {
   const { user } = useContext(UserContext) || { user: null };
   const [isListening, setIsListening] = useState(false); // State for listening
   const [spokenText, setSpokenText] = useState(""); // State to store spoken text
+  const [openChatBox, setOpenChatbox] = useState(false)
 
   // Callback function to update isListening state
   const handleListeningChange = (newIsListening) => {
@@ -29,6 +30,10 @@ function App() {
     setSpokenText(text);
     console.log(text)
   };
+
+  const handleChatBoxTrigger = (state) => {
+    setOpenChatbox(state)
+  }
 
   return (
     <div className="App">
@@ -49,8 +54,9 @@ function App() {
         <ChatIcon
           isListening={isListening}
           setIsListening={handleListeningChange}
+          handleChatBoxTrigger={handleChatBoxTrigger}
         />
-        <Chatbot spokenText={spokenText} />
+        {openChatBox && <Chatbot spokenText={spokenText} handleChatBoxTrigger={handleChatBoxTrigger} openChatBox={openChatBox}/>}
       </BrowserRouter>
     </div>
   );
