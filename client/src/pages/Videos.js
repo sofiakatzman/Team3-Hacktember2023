@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Videos = () => {
   const [videos, setVideos] = useState([]);
   const [filteredVideos, setFilteredVideos] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/api/content")
@@ -51,10 +49,6 @@ const Videos = () => {
     return '';
   };
 
-  // Function to open the video in a new page or component
-  const openVideo = (videoId) => {
-    navigate(`/video/${videoId}`);
-  };
 
   return (
     <div className="bg-cover bg-center h-auto text-black py-10 px-5 object-fill">

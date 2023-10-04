@@ -2,20 +2,27 @@ import React, { useState, useEffect } from "react";
 import ExploreCards from "./ExploreCards";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import seedData from "./SeedData";
-
+// import seedData from "./SeedData";
 
 const CardList = () => {
   const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/content")
+      .then((r) => r.json())
+      .then((data) => setVideos(data))
+      .catch((error) => console.error("Error fetching data:", error)); // Handle fetch errors
+  }, []);
 
   const getThumbnailUrl = (url) => {
     const videoIdMatch = url.match(/v=([^&]+)/);
     if (videoIdMatch && videoIdMatch[1]) {
       return `http://img.youtube.com/vi/${videoIdMatch[1]}/0.jpg`;
     }
-    return '';
+    return "";
   };
-  const videosByGenre = seedData.reduce((acc, video) => {
+
+  const videosByGenre = videos.reduce((acc, video) => {
     if (!acc[video.genre]) {
       acc[video.genre] = [];
     }
@@ -39,15 +46,20 @@ const CardList = () => {
             centerMode={true}
             centerSlidePercentage={33.3}
           >
-            {videosByGenre[genre].map((video, videoIndex) => (
-              <div key={videoIndex} className="mx-1">
-                <ExploreCards
-                  title={video.title}
-                  description={video.description}
-                  imageUrl={getThumbnailUrl(video.video)} // Use getThumbnailUrl to generate image URL
-                />
-              </div>
-            ))}
+            {videosByGenre[genre] && videosByGenre[genre].length > 0 ? (
+              videosByGenre[genre].map((video, videoIndex) => (
+                <div key={videoIndex} className="mx-1">
+                  <ExploreCards
+                    id={video.id}
+                    title={video.title}
+                    description={video.description}
+                    imageUrl={getThumbnailUrl(video.video)} // Use getThumbnailUrl to generate image URL
+                  />
+                </div>
+              ))
+            ) : (
+              <p>No videos available for this genre</p>
+            )}
           </Carousel>
         </div>
       ))}
