@@ -1,65 +1,67 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ExploreCards from "./ExploreCards";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import image1 from "../Assets/Lesson 1 Thumb.png";
-import image2 from "../Assets/Lesson 2 Thumb.png";
-import image3 from "../Assets/Lesson 3 Thumb.png";
 
 const CardList = () => {
-  const cardsData = [
-    {
-      title: "Introduction to Chemistry Lesson 1",
-      description:
-        "Explore the basics of Chemistry and build a foundation so you can dive deeper in...",
-      imageUrl: image1,
-    },
-    {
-      title: "Atomic Structure Lesson 2",
-      description: "Explore the basics of Chemistry and build a foundation so you can dive deeper in...",
-      imageUrl: image2,
-    },
-    {
-      title: "Chemical Bonding Lesson 3",
-      description: "Explore the basics of Chemistry and build a foundation so you can dive deeper in...",
-      imageUrl: image3,
-    },
-    {
-      title: "Sunset Over the Ocean",
-      description: "Test description for the forth card",
-      imageUrl:
-        "https://media.istockphoto.com/id/508215946/photo/lava-lake.jpg?s=2048x2048&w=is&k=20&c=WTPn11Gn3iHatWJyVPk0coU4naaT7crfjgtqhcznbq0=",
-    },
-  ];
+  const [videos, setVideos] = useState([]);
+
+  const getThumbnailUrl = (url) => {
+    const videoIdMatch = url.match(/v=([^&]+)/);
+    if (videoIdMatch && videoIdMatch[1]) {
+      return `http://img.youtube.com/vi/${videoIdMatch[1]}/0.jpg`;
+    }
+    return '';
+  };
+
+  useEffect(() => {
+    fetch("/api/content")
+      .then((r) => r.json())
+      .then((data) => {
+        setVideos(data);
+        console.log(data);
+      });
+  }, []);
+
+  // Organize videos by genre
+  const videosByGenre = videos.reduce((acc, video) => {
+    if (!acc[video.genre]) {
+      acc[video.genre] = [];
+    }
+    acc[video.genre].push(video);
+    return acc;
+  }, {});
 
   return (
     <div className="mx-48">
-      <p className="text-left font-Poppins text-2xl font-semibold ">
-        {" "}
-        Chemistry{" "}
-      </p>
-      <Carousel
-        showThumbs={false}
-        showArrows={true}
-        showStatus={false}
-        showIndicators={false}
-        dynamicHeight={false}
-        emulateTouch={true}
-        swipeable={true}
-        centerMode={true}
-        centerSlidePercentage={33.3}
-      >
-        {cardsData.map((card, index) => (
-          <div key={index} className="mx-1">
-            <ExploreCards
-              title={card.title}
-              description={card.description}
-              imageUrl={card.imageUrl}
-            />
-          </div>
-        ))}
-      </Carousel>
+      {Object.keys(videosByGenre).map((genre, index) => (
+        <div key={index}>
+          <p className="text-left font-Poppins text-2xl font-semibold ">{genre}</p>
+          <Carousel
+            showThumbs={false}
+            showArrows={true}
+            showStatus={false}
+            showIndicators={false}
+            dynamicHeight={false}
+            emulateTouch={true}
+            swipeable={true}
+            centerMode={true}
+            centerSlidePercentage={33.3}
+          >
+            {videosByGenre[genre].map((video, videoIndex) => (
+              <div key={videoIndex} className="mx-1">
+                <ExploreCards
+                  title={video.title}
+                  description={video.description}
+                  imageUrl={getThumbnailUrl(video.url)} // Use getThumbnailUrl to generate image URL
+                />
+              </div>
+            ))}
+          </Carousel>
+        </div>
+      ))}
     </div>
   );
 };
+
 export default CardList;
