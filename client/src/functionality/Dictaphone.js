@@ -4,7 +4,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 const Dictaphone = ({ isListening, onTranscribe }) => {
   const {
     transcript,
-    resetTranscript,
+    // resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 

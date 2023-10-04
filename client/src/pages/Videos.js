@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Videos = () => {
-  const [videos, setVideos] = useState(null);
+  const { subject } = useParams(); // Get the subject parameter from the URL
+  const [videos, setVideos] = useState([]);
   const [filteredVideos, setFilteredVideos] = useState(null);
   const [selectedGenre, setSelectedGenre] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedVideo, setSelectedVideo] = useState(null);
-  const navigate = useNavigate(); 
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/api/content")
@@ -19,14 +20,16 @@ const Videos = () => {
   }, []);
 
   useEffect(() => {
-    // Filter videos based on the selected genre
-    if (selectedGenre === 'All') {
+    // Filter videos based on the selected genre or subject
+    if (subject === 'All') {
       setFilteredVideos(videos);
     } else {
-      const filtered = videos.filter(video => video.genre === selectedGenre);
+      const filtered = videos.filter(
+        (video) => video.genre === selectedGenre || video.subject === subject
+      );
       setFilteredVideos(filtered);
     }
-  }, [selectedGenre, videos]);
+  }, [selectedGenre, videos, subject]);
 
   useEffect(() => {
     // Filter videos based on the search query
@@ -55,7 +58,7 @@ const Videos = () => {
     if (videoId) {
       return `http://img.youtube.com/vi/${videoId}/0.jpg`;
     }
-    return ''; 
+    return '';
   };
 
   // Function to open the video in a new page or component
@@ -98,7 +101,7 @@ const Videos = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredVideos && filteredVideos.length > 0 ? (
             filteredVideos.map(video => {
-              const thumbnailUrl = getThumbnailUrl(video.video); 
+              const thumbnailUrl = getThumbnailUrl(video.video);
               return (
                 <div
                   key={video.id}

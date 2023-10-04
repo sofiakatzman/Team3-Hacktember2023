@@ -2,9 +2,9 @@ import React from "react";
 import VCB from "../Assets/Volcano Banner.png";
 
 const Banner = () => {
+
   const backgroundImageUrl =
     "https://media.cnn.com/api/v1/images/stellar/prod/221128140051-mauna.jpg?c=16x9&q=w_850,c_fill";
-
   return (
     <>
       <div
