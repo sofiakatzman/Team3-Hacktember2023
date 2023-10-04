@@ -10,6 +10,7 @@ import ChatIcon from "./components/Chatbot/ChatIcon";
 import Chatbot from "./components/Chatbot/Chatbot";
 import "./App.css";
 import Videos from "./pages/Videos";
+import VideoPage from "./pages/VideoPage";
 
 function App() {
   const { user } = useContext(UserContext) || { user: null };
@@ -40,6 +41,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/videos" element={<Videos />} />
+          <Route path="/video/:videoId" element={<VideoPage />} />
           <Route path="/auth" element={<Authentication />} />
           {user && <Route path="/useronly" element={<UserOnly />} />}
         </Routes>

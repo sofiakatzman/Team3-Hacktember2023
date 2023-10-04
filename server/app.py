@@ -1,30 +1,20 @@
-# app.py
-from flask import Flask, request, jsonify
-from flask_cors import CORS  # Import the CORS library
-import requests
-from dotenv import load_dotenv
-import os
+from flask import Flask, request, jsonify, render_template
+from config import app, jsonify
+from routes.routes import *
 
-app = Flask(__name__)
-CORS(app)  # Initialize CORS with your app instance
 
-load_dotenv()
-# Load your API key from an environment variable or secret management service
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+@app.route('/api/users')
+def api_users():
+    # Add logic here to handle API requests if needed
+    return jsonify({"message": "API endpoint for users"})
 
-@app.route('/api/chat', methods=['POST'])
-def chat():
-    payload = request.json
-    headers = {
-        "Authorization": f"Bearer {OPENAI_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    response = requests.post(
-        "https://api.openai.com/v1/chat/completions",
-        headers=headers,
-        json=payload
-    )
-    return jsonify(response.json())
+@app.route('/')
+@app.route('/home')
+@app.route('/auth')
+@app.route('/useronly')
+
+def index(id=0):
+    return render_template("index.html")
 
 if __name__ == '__main__':
     app.run(port=5000)  # will run on http://localhost:5000

@@ -13,6 +13,7 @@ from sqlalchemy import MetaData
 from flask_bcrypt import Bcrypt
 # from flask_socketio import SocketIO
 import psycopg2
+import requests
 
 # Local imports
 
@@ -29,6 +30,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.json.compact = False
 app.secret_key = "900504cb3ab4a1f6264d2djiY"
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 # Define metadata, instantiate db
 metadata = MetaData(naming_convention={
@@ -45,6 +47,9 @@ api = Api(app)
 
 # Instantiate CORS
 CORS(app)
+
+
+
 
 #Instantiate SocketIO server
 # socketio = SocketIO(app, cors_allowed_origins="*")

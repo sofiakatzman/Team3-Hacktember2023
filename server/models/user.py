@@ -37,10 +37,11 @@ class Content(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     video = db.Column(db.String)
+    genre = db.Column(db.String)
     description = db.Column(db.String)
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
     created_at = db.Column(db.DateTime, default=db.func.now())
-    serialize_only = ('id', 'title', 'video', 'description')
+    serialize_only = ('id', 'title', 'video', 'description', 'genre')
     
   
 

@@ -11,9 +11,8 @@ const NavbarCmp = () => {
   return (
     <nav className="bg-black border-gray-200 dark:bg-white">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <Link to="/home" className="flex items-center">
-          <img src="" className="h-8 mr-3" alt="Logo" />
-          <span className="text-zinc-800 text-[64px] font-normal font-Poppins">
+        <Link to="/" className="flex items-center">
+          <span className="text-zinc-800 text-[64px] font-normal font-['Poppins']">
             Edu
           </span>
           <span className="text-fuchsia-900 text-[64px] font-bold font-Poppins">
