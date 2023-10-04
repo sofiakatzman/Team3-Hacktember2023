@@ -33,7 +33,7 @@ const CardList = () => {
   ];
 
   return (
-    <div className="p-4">
+    <div className="mx-48">
       <p className="text-left font-Poppins text-2xl font-semibold ">
         {" "}
         Chemistry{" "}

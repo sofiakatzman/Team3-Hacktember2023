@@ -8,12 +8,11 @@ const NavbarCmp = () => {
   console.log(user)
 
   const navigationLinks = [
-    { id: "topics", text: "Topics", to: "/topics" },
     { id: "videos", text: "Videos", to: "/videos" },
   ];
   return (
     <nav className="bg-black border-gray-200 dark:bg-white">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-48">
         <Link to="/" className="flex items-center">
           <span className="text-zinc-800 text-[64px] font-normal font-['Poppins']">
             Edu

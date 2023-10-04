@@ -10,7 +10,6 @@ import Chatbot from "./components/Chatbot/Chatbot";
 import Videos from "./pages/Videos";
 import VideoPage from "./pages/VideoPage";
 import "./App.css";
-import Topics from "./pages/Topics";
 
 function App() {
   // const { user } = useContext(UserContext) || { user: null };
@@ -40,7 +39,6 @@ function App() {
         <NavbarCmp />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/topics" element={<Topics />} />
           <Route path="/videos" element={<Videos />} />
           <Route path="/videos/:subject" element={<Videos />} />
           <Route path="/video/:videoId" element={<VideoPage />} />
