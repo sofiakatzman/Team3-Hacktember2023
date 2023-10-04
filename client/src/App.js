@@ -1,17 +1,15 @@
 import React, { useContext, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserContext } from "./functionality/UserContext";
-import Header from "./components/Layout/Header";
-import Footer from "./components/Layout/Footer";
 import Authentication from "./pages/Authentication";
 import UserOnly from "./pages/UserOnly";
 import Home from "./pages/Home";
-import Root from "./pages/Root";
 import Dictaphone from "./functionality/Dictaphone";
 import NavbarCmp from "./components/Navbar/NavbarCmp";
 import ChatIcon from "./components/Chatbot/ChatIcon";
 import Chatbot from "./components/Chatbot/Chatbot";
 import "./App.css";
+import Videos from "./pages/Videos";
 
 function App() {
   const { user } = useContext(UserContext) || { user: null };
@@ -40,9 +38,9 @@ function App() {
       <BrowserRouter>
         <NavbarCmp />
         <Routes>
-          <Route path="/" element={<Root />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/videos" element={<Videos />} />
           <Route path="/auth" element={<Authentication />} />
-          <Route path="/home" element={<Home />} />
           {user && <Route path="/useronly" element={<UserOnly />} />}
         </Routes>
 
