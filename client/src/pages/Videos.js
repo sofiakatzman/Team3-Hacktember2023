@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Videos = () => {
-  const { subject } = useParams(); // Get the subject parameter from the URL
   const [videos, setVideos] = useState([]);
-  const [filteredVideos, setFilteredVideos] = useState(null);
+  const [filteredVideos, setFilteredVideos] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -20,16 +19,16 @@ const Videos = () => {
   }, []);
 
   useEffect(() => {
-    // Filter videos based on the selected genre or subject
-    if (subject === 'All') {
+    // Filter videos based on the selected genre
+    if (selectedGenre === 'All') {
       setFilteredVideos(videos);
     } else {
       const filtered = videos.filter(
-        (video) => video.genre === selectedGenre || video.subject === subject
+        (video) => video.genre === selectedGenre
       );
       setFilteredVideos(filtered);
     }
-  }, [selectedGenre, videos, subject]);
+  }, [selectedGenre, videos]);
 
   useEffect(() => {
     // Filter videos based on the search query
@@ -43,20 +42,11 @@ const Videos = () => {
     }
   }, [searchQuery, videos]);
 
-  // Function to extract video ID from YouTube URL
-  const getVideoIdFromUrl = (url) => {
-    const videoIdMatch = url.match(/v=([^&]+)/);
-    if (videoIdMatch && videoIdMatch[1]) {
-      return videoIdMatch[1];
-    }
-    return null;
-  };
-
   // Function to generate YouTube thumbnail URL
   const getThumbnailUrl = (url) => {
-    const videoId = getVideoIdFromUrl(url);
-    if (videoId) {
-      return `http://img.youtube.com/vi/${videoId}/0.jpg`;
+    const videoIdMatch = url.match(/v=([^&]+)/);
+    if (videoIdMatch && videoIdMatch[1]) {
+      return `http://img.youtube.com/vi/${videoIdMatch[1]}/0.jpg`;
     }
     return '';
   };
@@ -99,7 +89,7 @@ const Videos = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredVideos && filteredVideos.length > 0 ? (
+          {filteredVideos.length > 0 ? (
             filteredVideos.map(video => {
               const thumbnailUrl = getThumbnailUrl(video.video);
               return (
