@@ -95,7 +95,7 @@ const Chatbot = ({ spokenText, handleChatBoxTrigger, openChatBox }) => {
     };
 
     return (
-        <div
+        <div className="bg-white rounded-full p-5 m-5 text-2xl font-bold 0"
             style={{
             position: "fixed",
             bottom: "0",
@@ -104,9 +104,10 @@ const Chatbot = ({ spokenText, handleChatBoxTrigger, openChatBox }) => {
             zIndex: "9999", // Ensure it's displayed above other elements
             height: "400px", // Set the desired height
             width: "600px", // Set the desired width
+            borderRadius: "45px"
         }}
->
-            <MainContainer>
+>   
+            {/* <MainContainer> */}
                 <ChatContainer >
                     <MessageList
                         scrollBehavior="smooth"
@@ -118,7 +119,7 @@ const Chatbot = ({ spokenText, handleChatBoxTrigger, openChatBox }) => {
                     </MessageList>
                     <MessageInput placeholder="Type message here" onSend={handleSend} style={{ display: "none" }}/>
                 </ChatContainer>
-            </MainContainer>
+            {/* </MainContainer> */}
         </div>
     )
 }
