@@ -3,8 +3,8 @@ import Explore from "../components/HomePageCmps/Explore";
 import Banner from "../components/HomePageCmps/Banner";
 
 const Home = () => {
-  const backgroundImageUrl =
-    "https://media.cnn.com/api/v1/images/stellar/prod/221128140051-mauna.jpg?c=16x9&q=w_850,c_fill";
+  // const backgroundImageUrl =
+  //   "https://media.cnn.com/api/v1/images/stellar/prod/221128140051-mauna.jpg?c=16x9&q=w_850,c_fill";
 
   return (
     <>
