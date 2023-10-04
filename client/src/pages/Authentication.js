@@ -35,7 +35,7 @@ const Authentication = () => {
       if (response.ok) {
         const data = await response.json();
         setUser(data);
-        navigate("/home");
+        navigate("/");
       } else {
         if (signUp) {
           throw new Error("Sign-up failed. Please check your inputs and try again.");
