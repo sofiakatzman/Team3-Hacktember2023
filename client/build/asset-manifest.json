@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.30e24d49.css",
+    "main.js": "/static/js/main.7ee993ed.js",
+    "static/media/Lesson 1 Thumb.png": "/static/media/Lesson 1 Thumb.eef629a074ddd3724581.png",
+    "static/media/Lesson 3 Thumb.png": "/static/media/Lesson 3 Thumb.748ec8d32feb4e88040b.png",
+    "static/media/Lesson 2 Thumb.png": "/static/media/Lesson 2 Thumb.0ee2de013dff005ca52b.png",
+    "static/media/Profile_Circle.png": "/static/media/Profile_Circle.683a195dfdf10bb2735a.png",
+    "index.html": "/index.html",
+    "main.30e24d49.css.map": "/static/css/main.30e24d49.css.map",
+    "main.7ee993ed.js.map": "/static/js/main.7ee993ed.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.30e24d49.css",
+    "static/js/main.7ee993ed.js"
+  ]
+}
