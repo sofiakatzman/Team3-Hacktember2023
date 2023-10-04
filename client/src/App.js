@@ -1,19 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { UserContext } from "./functionality/UserContext";
+// import { UserContext } from "./functionality/UserContext";
 import Authentication from "./pages/Authentication";
-import UserOnly from "./pages/UserOnly";
 import Home from "./pages/Home";
 import Dictaphone from "./functionality/Dictaphone";
 import NavbarCmp from "./components/Navbar/NavbarCmp";
 import ChatIcon from "./components/Chatbot/ChatIcon";
 import Chatbot from "./components/Chatbot/Chatbot";
-import "./App.css";
 import Videos from "./pages/Videos";
 import VideoPage from "./pages/VideoPage";
+import "./App.css";
+import Topics from "./pages/Topics";
 
 function App() {
-  const { user } = useContext(UserContext) || { user: null };
+  // const { user } = useContext(UserContext) || { user: null };
   const [isListening, setIsListening] = useState(false); // State for listening
   const [spokenText, setSpokenText] = useState(""); // State to store spoken text
   const [openChatBox, setOpenChatbox] = useState(false)
@@ -40,10 +40,11 @@ function App() {
         <NavbarCmp />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/topics" element={<Topics />} />
           <Route path="/videos" element={<Videos />} />
+          <Route path="/videos/:subject" element={<Videos />} />
           <Route path="/video/:videoId" element={<VideoPage />} />
           <Route path="/auth" element={<Authentication />} />
-          {user && <Route path="/useronly" element={<UserOnly />} />}
         </Routes>
 
         <Dictaphone

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import mic from "../../assets/LOGO_MIC.png";
 
 const ChatIcon = ({ setIsListening, handleChatBoxTrigger }) => {

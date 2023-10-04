@@ -4,13 +4,12 @@ import { UserContext } from "../../functionality/UserContext";
 import PROFILEPIC from "../../assets/Profile_Circle.png"
 
 const NavbarCmp = () => {
-  const { user, logout } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   console.log(user)
 
   const navigationLinks = [
     { id: "topics", text: "Topics", to: "/topics" },
     { id: "videos", text: "Videos", to: "/videos" },
-    { id: "articles", text: "Articles", to: "/articles" },
   ];
 
   return (

@@ -15,9 +15,9 @@ const Video = ({ url }) => {
     setIsPlaying(!isPlaying);
   };
 
-  const handleMuteClick = () => {
-    setMuted(!muted);
-  };
+  // const handleMuteClick = () => {
+  //   setMuted(!muted);
+  // };
 
   const handleHomeClick = () => {
     nav("/")

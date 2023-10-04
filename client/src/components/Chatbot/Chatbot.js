@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
+import { ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
 const systemMessage = {
     "role": "system", "content": "Please explain things like you're talking to a young person, in just one or two sentences."
@@ -20,7 +20,7 @@ const Chatbot = ({ spokenText, handleChatBoxTrigger, openChatBox }) => {
         if (spokenText) {
             handleSend(spokenText);
         }
-    }, [spokenText]);
+    },);
 
     const handleSend = async (message) => {
         const newMessage = {
