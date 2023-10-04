@@ -1,3 +1,15 @@
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "./functionality/UserContext";
+import Header from "./components/Layout/Header";
+import Footer from "./components/Layout/Footer";
+import Authentication from "./pages/Authentication";
+import UserOnly from "./pages/UserOnly";
+import Home from "./pages/Home";
+import "./App.css";
+import Root from "./pages/Root";
+import Dictaphone from "./functionality/Dictaphone";
+import NavbarCmp from "./components/Navbar/NavbarCmp";
 import { useState } from 'react'
 import './App.css'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
@@ -10,6 +22,7 @@ const systemMessage = {
 }
 
 function App() {
+  const { user } = useContext(UserContext) || { user: null };
   const [messages, setMessages] = useState([
     {
       message: "Hello, I'm ChatGPT! Ask me anything!",
@@ -87,7 +100,19 @@ function App() {
   }
 
   return (
-    <div className="App">
+     <div className="App">
+      <BrowserRouter>
+        <NavbarCmp />
+        <Routes>
+          <Route path="/" element={<Root />} />
+          <Route path="/auth" element={<Authentication />} />
+          <Route path="/home" element={<Home />} />
+          {user && <Route path="/useronly" element={<UserOnly />} />}
+        </Routes>
+        <Dictaphone />
+        <Header />
+        <Footer />
+      </BrowserRouter>
       <div style={{ position:"relative", height: "800px", width: "700px"  }}>
         <MainContainer>
           <ChatContainer>       
