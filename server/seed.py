@@ -6,6 +6,7 @@ from config import db
 
 
 def seed_content():
+    Content.query.delete()
     seed_data = [
     {
         'title': 'Addition and Subtraction with Dinosaurs',
@@ -82,7 +83,6 @@ def seed_content():
             description=data['description']
         )
         db.session.add(content)
-
     db.session.commit()
 
 
