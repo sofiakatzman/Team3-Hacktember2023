@@ -20,13 +20,6 @@ const Dictaphone = ({ isListening, onTranscribe }) => {
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
   }
-
-  return (
-    <div>
-      <p>Microphone: {isListening ? 'on' : 'off'}</p>
-      <p>{transcript}</p>
-    </div>
-  );
 };
 
 export default Dictaphone;
