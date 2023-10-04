@@ -46,7 +46,7 @@ bcrypt = Bcrypt(app)
 api = Api(app)
 
 # Instantiate CORS
-CORS(app)
+cors = CORS(app, resources={r"/api/*": {"origins": "https://hackathonsubmission.onrender.com"}})
 
 
 
