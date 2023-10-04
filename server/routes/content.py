@@ -10,7 +10,7 @@ class ContentList(Resource):
     
     def post(self): #add a new content to the database
         form_json = request.get_json()
-        new_content = Content(title=form_json['title'], video=form_json['video'], description=form_json['description'])
+        new_content = Content(title=form_json['title'], video=form_json['video'], description=form_json['description'], genre=form_json['genre'])
         db.session.add(new_content)
         db.session.commit()
         response = make_response(
@@ -37,7 +37,7 @@ class ContentByID(Resource):
 class AddContentToCart(Resource):
     def post(self, id): #add a specific content to the cart by id
         form_json = request.get_json()
-        add_content = Content(title=form_json['title'], video=form_json['video'], description=form_json['description'])
+        add_content = Content(title=form_json['title'], video=form_json['video'], description=form_json['description'], genre=form_json['genre'])
         db.session.add(add_content)
         db.session.commit()
 
