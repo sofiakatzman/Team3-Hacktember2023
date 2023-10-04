@@ -1,9 +1,9 @@
 import React from "react";
+import hero from "../../assets/hero_banner.png"
 
 const Banner = () => {
 
-  const backgroundImageUrl =
-    "https://media.cnn.com/api/v1/images/stellar/prod/221128140051-mauna.jpg?c=16x9&q=w_850,c_fill";
+  const backgroundImageUrl = {hero}
   return (
     <>
       <div
