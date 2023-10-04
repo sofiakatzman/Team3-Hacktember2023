@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import ExploreCards from "./ExploreCards";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import seedData from "./SeedData";
+
 
 const CardList = () => {
   const [videos, setVideos] = useState([]);
@@ -13,18 +15,7 @@ const CardList = () => {
     }
     return '';
   };
-
-  useEffect(() => {
-    fetch("/api/content")
-      .then((r) => r.json())
-      .then((data) => {
-        setVideos(data);
-        console.log(data);
-      });
-  }, []);
-
-  // Organize videos by genre
-  const videosByGenre = videos.reduce((acc, video) => {
+  const videosByGenre = seedData.reduce((acc, video) => {
     if (!acc[video.genre]) {
       acc[video.genre] = [];
     }
@@ -53,7 +44,7 @@ const CardList = () => {
                 <ExploreCards
                   title={video.title}
                   description={video.description}
-                  imageUrl={getThumbnailUrl(video.url)} // Use getThumbnailUrl to generate image URL
+                  imageUrl={getThumbnailUrl(video.video)} // Use getThumbnailUrl to generate image URL
                 />
               </div>
             ))}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Videos = () => {
   const [videos, setVideos] = useState([]);
@@ -93,10 +93,10 @@ const Videos = () => {
             filteredVideos.map(video => {
               const thumbnailUrl = getThumbnailUrl(video.video);
               return (
-                <div
+                <Link
                   key={video.id}
+                  to={`/video/${video.id}`} // Set the URL to navigate to the video's page
                   className="bg-white shadow-md rounded-lg overflow-hidden cursor-pointer"
-                  onClick={() => openVideo(video.id)}
                 >
                   {thumbnailUrl && (
                     <div
@@ -112,7 +112,7 @@ const Videos = () => {
                     <h2 className="text-lg font-semibold mb-2">{video.title}</h2>
                     <p className="text-sm">{video.description}</p>
                   </div>
-                </div>
+                </Link>
               );
             })
           ) : (
