@@ -20,7 +20,8 @@ const Chatbot = ({ spokenText, handleChatBoxTrigger, openChatBox }) => {
         if (spokenText) {
             handleSend(spokenText);
         }
-    },);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [spokenText]);
 
     const handleSend = async (message) => {
         const newMessage = {
