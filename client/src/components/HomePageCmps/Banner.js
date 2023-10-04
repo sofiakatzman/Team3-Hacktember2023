@@ -1,5 +1,4 @@
 import React from "react";
-import VCB from "../Assets/Volcano Banner.png";
 
 const Banner = () => {
 
@@ -18,7 +17,7 @@ const Banner = () => {
             Attractive designs for your brand
           </p>
           <a
-            href="#"
+            href="/"
             className="bg-blue-500 py-4 px-8 text-white font-bold uppercase text-xs rounded hover:bg-gray-200 hover:text-gray-800"
           >
             Continue
