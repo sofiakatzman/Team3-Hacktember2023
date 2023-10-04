@@ -8,7 +8,6 @@ const NavbarCmp = () => {
     { id: "articles", text: "Articles", to: "/articles" },
     { id: "get-started", text: "Get Started", to: "/get-started" },
   ];
-
   return (
     <nav className="bg-black border-gray-200 dark:bg-white">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
