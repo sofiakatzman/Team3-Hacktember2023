@@ -18,14 +18,14 @@ export default function App() {
     <div className="App">
       <BrowserRouter>
         <NavbarCmp />
-        <Dictaphone />
-        <Header />
         <Routes>
           <Route path="/" element={<Root />} />
           <Route path="/auth" element={<Authentication />} />
           <Route path="/home" element={<Home />} />
           {user && <Route path="/useronly" element={<UserOnly />} />}
         </Routes>
+        <Dictaphone />
+        <Header />
         <Footer />
       </BrowserRouter>
     </div>
