@@ -1,9 +1,8 @@
 import React from "react";
-import hero from "../../assets/hero_banner.png"
 
 const Banner = () => {
 
-  const backgroundImageUrl = {hero}
+  const backgroundImageUrl = "https://i.ibb.co/j8fjYdF/Image-Banner-1.png"
   return (
     <>
       <div
