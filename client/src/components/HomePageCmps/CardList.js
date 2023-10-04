@@ -28,7 +28,7 @@ const CardList = () => {
       {cardsData.map((card, index) => (
         <div
           key={index}
-          className={`mx-4 ${index !== 0 ? "border-l border-gray-300" : ""}`}
+          className={`mx-8 ${index !== 0 ? "border-l border-gray-300" : ""}`}
         >
           <ExploreCards
             title={card.title}
