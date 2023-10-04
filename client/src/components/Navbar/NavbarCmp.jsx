@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../functionality/UserContext";
+import PROFILEPIC from "../../assets/Profile_Circle.png"
 
 const NavbarCmp = () => {
+  const { user, logout } = useContext(UserContext);
+  console.log(user)
+
   const navigationLinks = [
     { id: "topics", text: "Topics", to: "/topics" },
     { id: "videos", text: "Videos", to: "/videos" },
     { id: "articles", text: "Articles", to: "/articles" },
-    { id: "get-started", text: "Get Started", to: "/get-started" },
   ];
   return (
     <nav className="bg-black border-gray-200 dark:bg-white">
@@ -31,6 +35,24 @@ const NavbarCmp = () => {
                 </Link>
               </li>
             ))}
+            <li>
+              {user ? (
+                // Display user's avatar or placeholder
+                <img
+                  src={PROFILEPIC}
+                  alt="User Avatar"
+                  className="h-8 w-8 rounded-full"
+                />
+              ) : (
+                // Display login link
+                <Link
+                  to="/auth"
+                  className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-black md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  Login
+                </Link>
+              )}
+            </li>
           </ul>
         </div>
       </div>
